@@ -1,5 +1,4 @@
 #include <windows.h>
-#include <stdio.h>
 #include "payload-server.h" 
 #include "include/thread-args.h"
 
