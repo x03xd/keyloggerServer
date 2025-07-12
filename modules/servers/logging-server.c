@@ -8,6 +8,7 @@ int handleLogging(LPVOID args) {
     ThreadArgs* threadArgs = (ThreadArgs*)args;
     SOCKET acceptSocket = threadArgs->acceptSocket;
     int bytesReceived = 0;
+    
     char buffer[TOTAL_BUFFER_SIZE];
     char userId[USER_ID_SIZE];
     char result[RESULT_SIZE];
