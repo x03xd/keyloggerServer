@@ -1,7 +1,6 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <windows.h>
-#include <stdio.h>
 #include "servers/logging-server.h" 
 #include "servers/payload-server.h" 
 #include "core/server-core.h" 
