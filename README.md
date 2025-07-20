@@ -12,7 +12,8 @@ The server behavior is determined by the `--mode` argument provided at runtime, 
   Starts a server that sends the keylogger payload to connecting clients. It handles binary transmission and initial setup.
 
 - **`--mode keylog`**  
-  Starts a server that listens for incoming keystroke data. It processes the received content along with `userId`, allowing user-specific logging and persistence.
+  Starts a server that listens for incoming keystroke data.  
+  It processes the received content along with a `userId`, and **logs the data to a file specific to that user**, enabling persistent, user-specific storage.
 
 ---
 
@@ -28,14 +29,5 @@ These defaults can be changed directly in the source code.
 
 ## 🔧 Core Architecture
 
-The project is implemented in C using the Windows Sockets API (WinSock). Below is a high-level overview:
+The project is implemented in C using the Windows Sockets API (WinSock). To maximize performance, each client connection is processed in its own dedicated thread.
 
-### Server Initialization
-
-```c
-BOOL initializeServer(...) {
-    WSAStartup(...);
-    socket(...);
-    bind(...);
-    listen(...);
-}
