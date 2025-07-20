@@ -28,6 +28,8 @@ BOOL initializeServer(SOCKET serverSocket, int socketResult, BOOL wsaInitialized
     if (listen(serverSocket, 5) == SOCKET_ERROR) {
         return FALSE;
     }
+
+    return TRUE;
 }
 
 BOOL acceptClientsLoop(SOCKET serverSocket, SOCKET clientSocket, HANDLE thread, ThreadArgs* args, char mode[]) {
