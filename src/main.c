@@ -51,11 +51,11 @@ int main(int argc, char* argv[]) {
     ThreadArgs* args = NULL;
     int socketResult = 0;
 
-    if (!initializeServer(serverSocket, socketResult, wsaInitialized, wsaData, config.port)) {
+    if (!initializeServer(&serverSocket, &socketResult, &wsaInitialized, &wsaData, config.port)) {
         goto CLEANUP;
     }
 
-    if (!acceptClientsLoop(serverSocket, clientSocket, thread, args, config.mode)) {
+    if (!acceptClientsLoop(&serverSocket, &clientSocket, thread, args, config.mode)) {
         goto CLEANUP;
     }
 
