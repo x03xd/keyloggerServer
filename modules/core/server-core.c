@@ -4,15 +4,15 @@
 #include "core/server-core.h" 
 
 
-BOOL initializeServer(SOCKET serverSocket, int socketResult, BOOL wsaInitialized, WSADATA wsaData, unsigned short port) {
-    socketResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-    if (socketResult != 0) {
+BOOL initializeServer(SOCKET* serverSocket, int* socketResult, BOOL* wsaInitialized, WSADATA* wsaData, unsigned short port) {
+    *socketResult = WSAStartup(MAKEWORD(2, 2), wsaData);
+    if (*socketResult != 0) {
         return FALSE;
     }
-    wsaInitialized = TRUE;
+    *wsaInitialized = TRUE;
 
-    serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if (serverSocket == INVALID_SOCKET) {
+    *serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    if (*serverSocket == INVALID_SOCKET) {
         return FALSE;
     }
 
@@ -21,21 +21,21 @@ BOOL initializeServer(SOCKET serverSocket, int socketResult, BOOL wsaInitialized
     server_addr.sin_port = htons(port);
     server_addr.sin_addr.s_addr = INADDR_ANY;
 
-    if (bind(serverSocket, (struct sockaddr *)&server_addr, sizeof(server_addr)) == SOCKET_ERROR) {
+    if (bind(*serverSocket, (struct sockaddr *)&server_addr, sizeof(server_addr)) == SOCKET_ERROR) {
         return FALSE;
     }
 
-    if (listen(serverSocket, 5) == SOCKET_ERROR) {
+    if (listen(*serverSocket, 5) == SOCKET_ERROR) {
         return FALSE;
     }
 
     return TRUE;
 }
 
-BOOL acceptClientsLoop(SOCKET serverSocket, SOCKET clientSocket, HANDLE thread, ThreadArgs* args, char mode[]) {
+BOOL acceptClientsLoop(SOCKET* serverSocket, SOCKET* clientSocket, HANDLE thread, ThreadArgs* args, char mode[]) {
     while (1) {
-        clientSocket = accept(serverSocket, NULL, NULL);
-        if (clientSocket == INVALID_SOCKET) {
+        *clientSocket = accept(*serverSocket, NULL, NULL);
+        if (*clientSocket == INVALID_SOCKET) {
             continue;
         }
 
@@ -43,7 +43,7 @@ BOOL acceptClientsLoop(SOCKET serverSocket, SOCKET clientSocket, HANDLE thread, 
         if (!args) {
             return FALSE;
         }
-        args->acceptSocket = clientSocket;
+        args->acceptSocket = *clientSocket;
 
         LPTHREAD_START_ROUTINE threadFunction;
 
@@ -63,3 +63,4 @@ BOOL acceptClientsLoop(SOCKET serverSocket, SOCKET clientSocket, HANDLE thread, 
 
     return TRUE;
 }
+
