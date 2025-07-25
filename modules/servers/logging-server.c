@@ -21,6 +21,10 @@ int handleLogging(LPVOID args) {
         buffer[bytesReceived] = '\0';
         parseBinaryMessage(buffer, userId, result);
         createAndSaveToTheFile(userId, result);
+
+        memset(buffer, 0, sizeof(buffer));
+        memset(userId, 0, sizeof(userId));
+        memset(result, 0, sizeof(result));
     }
     return 1;
 }
