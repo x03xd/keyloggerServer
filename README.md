@@ -2,10 +2,9 @@
 
 This project contains server-side components for a keylogger system built at the **Layer 4 (L4)** level of the OSI model - it operates directly over **TCP sockets** without using any application-layer protocols like HTTP.
 
-In practice, network communications that aim to blend into normal traffic often use protocols and traffic patterns that resemble legitimate network activity. For this reason, using HTTPS can be an effective approach, as it matches common traffic observed in many environments. Encrypting communications may also be beneficial despite the additional overhead, since it prevents the payload from being directly inspected and classified based solely on its contents.
+In practice, network communications that aim to blend into normal traffic often use protocols, traffic patterns, and destination ports that resemble legitimate network activity. For this reason, using HTTPS over 443 can be an effective approach, as it aligns with traffic commonly observed in many environments. Encrypting communications may also be beneficial despite the additional overhead, since it prevents the payload from being directly inspected and classified based solely on its contents. However, modern security solutions typically analyze more than just port numbers, including protocol behavior, traffic patterns, metadata, and destination reputation.
 
-It is important to note that many enterprise environments deploy security controls such as TLS-intercepting proxies. In these setups, an organization-controlled root CA certificate is installed on managed endpoints, allowing TLS connections to be terminated,
-inspected, and analyzed before the traffic is re-encrypted and forwarded to its destination if it complies with organizational security policies.
+It is important to note that many enterprise environments deploy security controls such as TLS-intercepting proxies. In these setups, an organization-controlled root CA certificate is installed on managed endpoints, allowing TLS connections to be terminated, inspected, and analyzed before the traffic is re-encrypted and forwarded to its destination if it complies with organizational security policies.
 
 The server behavior is determined by the `--mode` argument provided at runtime, allowing two different modes:
 
