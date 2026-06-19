@@ -1,6 +1,11 @@
 # 🧩 Keylogger Server Project
 
-This project contains server-side components for a keylogger system built at the **Layer 4 (L4)** level of the OSI model — it operates directly over **TCP sockets** without using any application-layer protocols like HTTP.
+This project contains server-side components for a keylogger system built at the **Layer 4 (L4)** level of the OSI model - it operates directly over **TCP sockets** without using any application-layer protocols like HTTP.
+
+In practice, network communications that aim to blend into normal traffic often use protocols and traffic patterns that resemble legitimate network activity. For this reason, using HTTPS can be an effective approach, as it matches common traffic observed in many environments. Encrypting communications may also be beneficial despite the additional overhead, since it prevents the payload from being directly inspected and classified based solely on its contents.
+
+It is important to note that many enterprise environments deploy security controls such as TLS-intercepting proxies. In these setups, an organization-controlled root CA certificate is installed on managed endpoints, allowing TLS connections to be terminated,
+inspected, and analyzed before the traffic is re-encrypted and forwarded to its destination if it complies with organizational security policies.
 
 The server behavior is determined by the `--mode` argument provided at runtime, allowing two different modes:
 
@@ -30,4 +35,3 @@ These defaults can be changed directly in the source code.
 ## 🔧 Core Architecture
 
 The project is implemented in C using the Windows Sockets API (WinSock). To maximize performance, each client connection is processed in its own dedicated thread.
-
